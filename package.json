@@ -1,0 +1,36 @@
+{
+  "name": "@dalane/tcp-messenger",
+  "version": "0.0.1",
+  "description": "A message-oriented TCP socket library for node",
+  "main": "./build/src/index.js",
+  "scripts": {
+    "start": "npm run build && eval $(cat .env | egrep -v '^#') node ./build/src",
+    "postinstall": "npm run build",
+    "prebuild": "rm -r ./build",
+    "build": "tsc",
+    "test": "npm run build && mocha --recursive --reporter spec ./build/test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dalane/tcp-messenger.git"
+  },
+  "keywords": [
+    "node",
+    "tcp",
+    "socket",
+    "messages",
+    "json",
+    "client",
+    "server"
+  ],
+  "author": "Dallas Ewing <dallas.ewing@dalane.co.uk>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dalane/tcp-messenger/issues"
+  },
+  "homepage": "https://github.com/dalane/tcp-messenger#readme",
+  "dependencies": {
+    "@types/node": "^9.4.6",
+    "typescript": "^2.7.2"
+  }
+}
