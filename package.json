@@ -1,14 +1,13 @@
 {
-  "name": "@dalane/tcp-messenger",
-  "version": "0.0.2",
+  "name": "@dalane/net-messenger",
+  "version": "0.0.3",
   "description": "A message-oriented TCP socket library for node",
   "main": "./build/src/index.js",
   "scripts": {
     "start": "npm run build && eval $(cat .env | egrep -v '^#') node ./build/src",
     "postinstall": "npm run build",
-    "prebuild": "rm -r ./build",
     "build": "tsc",
-    "test": "npm run build && mocha --recursive --reporter spec ./build/test"
+    "test": "rm -r ./build && npm run build && mocha --recursive --reporter spec ./build/test"
   },
   "repository": {
     "type": "git",
