@@ -1,9 +1,9 @@
-export abstract class AbstractMessenger {
+import {constants} from './common';
+
+export abstract class MessageTokenizer {
   private _savedBuffer: string;
-  private _messageTerminationChars: string;
   constructor() {
     this._savedBuffer = '';
-    this._messageTerminationChars = '\0';
   }
   /**
    * Takes the provided object and returns it as a JSON string with the 
@@ -12,14 +12,14 @@ export abstract class AbstractMessenger {
    * @param object The object to be stringified using JSON
    */
   _stringifyMessageObject(object) {
-    return JSON.stringify(object) + this._messageTerminationChars;
+    return JSON.stringify(object) + constants.MESSAGE_TERMINATION_CHARACTER;
   }
   _parseMessageText(string) {
     return JSON.parse(string);
   }
   _tokenizeData(data) {
     this._savedBuffer += data;
-    let tokens = this._savedBuffer.split(this._messageTerminationChars);
+    let tokens = this._savedBuffer.split(constants.MESSAGE_TERMINATION_CHARACTER);
     if (tokens.pop()) {
       return [];
     }

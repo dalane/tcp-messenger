@@ -1,14 +1,34 @@
-import { Listener } from "./listener";
-import { Client } from "./client";
+import { Receiver } from "./receiver";
+import { Messenger } from "./messenger";
+import { Server, Socket } from "net";
 
-export function createListener(options = null) {
-  return new Listener(options);
+function createListener(options?) {
+  console.log('Deprecation Warning: This method is being deprecated in favour of createReceiver');
+  return new Receiver(options);
 }
-export function createClient(options = null) {
-  return new Client(options);
+
+function createClient(options?) {
+  console.log('Deprecation Warning: This method is being deprecated in favour of createMessenger');
+  return new Messenger(options);
+}
+
+function createReceiver() {
+  let server = new Server();
+  server.setMaxListeners(Infinity);
+  return new Receiver(server);
+}
+function createMessenger() {
+  let socket = new Socket();
+  return new Messenger(socket);
 }
 
 export {
-  Listener as Listener,
-  Client as Client
+  Receiver as Listener,
+  Messenger as Client,
+  Receiver,
+  Messenger,
+  createListener,
+  createClient,
+  createReceiver,
+  createMessenger
 };
