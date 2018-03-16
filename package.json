@@ -1,13 +1,15 @@
 {
   "name": "@dalane/net-messenger",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A message-oriented TCP socket library for node",
-  "main": "./build/src/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "start": "npm run build && eval $(cat .env | egrep -v '^#') node ./build/src",
-    "postinstall": "npm run build",
     "build": "tsc",
-    "test": "rm -r ./build && npm run build && nyc ava && nyc report --reporter=lcov"
+    "test": "npm run clean && npm run build && nyc ava && nyc report --reporter=lcov",
+    "clean": "rm -r ./dist",
+    "prepublish": "rm -r ./dist",
+    "publish": "tsc -p ./ --outDir ./dist"
   },
   "repository": {
     "type": "git",
@@ -28,17 +30,18 @@
     "url": "https://github.com/dalane/tcp-messenger/issues"
   },
   "homepage": "https://github.com/dalane/tcp-messenger#readme",
-  "dependencies": {
-    "@types/node": "^9.4.6",
-    "typescript": "^2.7.2"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "@types/node": "^9.4.7",
     "ava": "^0.25.0",
-    "nyc": "^11.4.1"
+    "nyc": "^11.4.1",
+    "ts-node": "^5.0.1",
+    "typescript": "^2.7.2"
   },
   "ava": {
     "files": [
-      "./build/tests/*.test.js"
-    ]
+      "./tests/*.test.js"
+    ],
+    "verbose": true
   }
 }

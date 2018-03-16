@@ -2,9 +2,9 @@
   "compilerOptions": {
     "alwaysStrict": true,
     "module": "commonjs",
-    "outDir": "./build",
+    "outDir": "./dist",
     "allowJs": false,
-    "target": "ES2017",
+    "target": "es6",
     "noImplicitAny": false,
     "sourceMap": false,
     "baseUrl": "./src",
@@ -12,11 +12,7 @@
     "pretty": true,
     "types": ["node"]
   },
-  "include": [
-    "./src/**/*.ts",
-    "./tests/**/*.test.ts"
-  ],
   "exclude": [
-      "node_modules"
+      "./node_modules"
   ]
 }
