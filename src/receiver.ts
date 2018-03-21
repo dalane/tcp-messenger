@@ -13,10 +13,9 @@ export class Receiver extends MessageTokenizer {
     // holds the message subject callback handlers...
     this._subjectCallbacks = {};
   }
-  listen(path: string);
-  listen(port: number);
-  listen(port: number, host: string);
-  listen(pathOrPort: string | number, host: string = null) {
+  listen(path: string)
+  listen(port: number, host?: string)
+  listen(pathOrPort: string | number, host?: string): Promise<void> {
     return new Promise((resolve, reject) => {
       this._server.on('listening', () => {
         resolve();
@@ -28,7 +27,7 @@ export class Receiver extends MessageTokenizer {
         this._socketPath = pathOrPort;
         this._server.listen(pathOrPort);
       } else {
-        host = (host === null) ? '127.0.0.1' : host;
+        host = (host) ? '127.0.0.1' : host;
         this._server.listen(pathOrPort, host);
       }
     });

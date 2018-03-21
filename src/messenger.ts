@@ -2,13 +2,13 @@ import { MessageTokenizer } from "./message-tokenizer";
 import { randomBytes } from "crypto";
 import { Socket } from "net";
 
-interface MessagePromises {
-  resolve,
-  reject
+interface MessagePromiseInterface {
+  resolve: any,
+  reject: any;
 }
 
 export class Messenger extends MessageTokenizer {
-  private _messagePromises: Map<string, MessagePromises>;
+  private _messagePromises: Map<string, MessagePromiseInterface>;
   private _socket: Socket;
   constructor(socket: Socket) {
     super();
@@ -18,10 +18,9 @@ export class Messenger extends MessageTokenizer {
     this._socket.on('close', this._onClose.bind(this));
     this._messagePromises = new Map();
   }
-  connect(path: string);
-  connect(port: number);
-  connect(port: number, host: string);
-  connect(pathOrPort: string | number, host: string = null) {
+  connect(path: string)
+  connect(port: number, host?: string)
+  connect(pathOrPort: string | number, host?: string) {
     return new Promise((resolve, reject) => {
       this._socket.on('connect', () => {
         resolve();
@@ -32,7 +31,7 @@ export class Messenger extends MessageTokenizer {
       if (typeof pathOrPort === 'string') {
         this._socket.connect(pathOrPort);
       } else {
-        host = (host === null) ? '127.0.0.1' : host;
+        host = (host) ? '127.0.0.1' : host;
         this._socket.connect(pathOrPort, host);
       }
     });
@@ -52,9 +51,6 @@ export class Messenger extends MessageTokenizer {
         subject: subject,
         data: data
       };
-      this._socket.on('error', error => {
-        reject(error);
-      });
       this._socket.write(this._stringifyMessageObject(message));
       this._messagePromises.set(message.id, {
         resolve: resolve,
