@@ -1,6 +1,6 @@
 {
   "name": "@dalane/net-messenger",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A message-oriented TCP socket library for node",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,8 +11,7 @@
     "compile": "npm run clean && tsc",
     "pretest": "npm run compile ",
     "test": "nyc ava && nyc report --reporter=lcov",
-    "clean": "rm -rf ./dist",
-    "prepack": "npm run compile"
+    "clean": "rm -rf ./dist"
   },
   "repository": {
     "type": "git",
