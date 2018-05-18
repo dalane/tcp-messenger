@@ -1,6 +1,6 @@
+import { existsSync, unlinkSync } from "fs";
+import { Server } from "net";
 import { MessageTokenizer } from "./message-tokenizer";
-import { createServer, Server } from "net";
-import { unlink, exists, unlinkSync, existsSync } from "fs";
 
 export class Receiver extends MessageTokenizer {
   private _subjectCallbacks: object;
@@ -47,6 +47,9 @@ export class Receiver extends MessageTokenizer {
     });
   }
   on(subject: string, callback: (message, data) => void) {
+    if (typeof callback !== 'function') {
+      throw new TypeError('callback must be a function');
+    }
     this._subjectCallbacks[subject] = callback;
   }
   private _onConnection(socket) {

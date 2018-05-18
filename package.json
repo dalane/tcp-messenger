@@ -1,6 +1,6 @@
 {
   "name": "@dalane/net-messenger",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A message-oriented TCP socket library for node",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
