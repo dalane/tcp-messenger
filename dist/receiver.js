@@ -56,7 +56,10 @@ class Receiver extends message_tokenizer_1.MessageTokenizer {
                 let message = this._parseMessageText(messageText);
                 message.socket = socket;
                 message = this._prepareOutgoingMessage(message);
-                this._dispatchMessage(message);
+                if (!this._subjectCallbacks[message.subject]) {
+                    return this._rejectMessage(message, new Error('Message subject not found on receiver.'));
+                }
+                return this._dispatchMessage(message);
             }
         });
     }
@@ -91,6 +94,9 @@ class Receiver extends message_tokenizer_1.MessageTokenizer {
             return cb !== null ? cb(message, message.data) : void 0;
         };
         return message;
+    }
+    _rejectMessage(message, errorOrName, detail = null) {
+        return message.reject(errorOrName, detail);
     }
     _dispatchMessage(message) {
         return message.next();

@@ -12,5 +12,7 @@ export declare class Receiver extends MessageTokenizer {
     on(subject: string, callback: (message, data) => void): void;
     private _onConnection(socket);
     private _prepareOutgoingMessage(message);
+    private _rejectMessage(message, error);
+    private _rejectMessage(message, name, detail);
     private _dispatchMessage(message);
 }
