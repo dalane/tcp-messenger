@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const message_tokenizer_1 = require("./message-tokenizer");
 const fs_1 = require("fs");
+const message_tokenizer_1 = require("./message-tokenizer");
 class Receiver extends message_tokenizer_1.MessageTokenizer {
     constructor(server) {
         super();
@@ -43,6 +43,9 @@ class Receiver extends message_tokenizer_1.MessageTokenizer {
         });
     }
     on(subject, callback) {
+        if (typeof callback !== 'function') {
+            throw new TypeError('callback must be a function');
+        }
         this._subjectCallbacks[subject] = callback;
     }
     _onConnection(socket) {

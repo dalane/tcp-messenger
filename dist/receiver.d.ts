@@ -1,6 +1,6 @@
 /// <reference types="node" />
-import { MessageTokenizer } from "./message-tokenizer";
 import { Server } from "net";
+import { MessageTokenizer } from "./message-tokenizer";
 export declare class Receiver extends MessageTokenizer {
     private _subjectCallbacks;
     private _server;
